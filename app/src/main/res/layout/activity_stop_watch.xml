@@ -13,16 +13,16 @@
     tools:context=".StopWatch"
     >
 
+
     <TextView
-        android:id="@+id/editTextText"
+        android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/txt0"
-        android:textAlignment="center"
         android:gravity="center"
+        android:text="00:00:00"
+        android:textAlignment="center"
         android:textSize="55sp" />
-
 
     <Button
         android:id="@+id/btnStart"
@@ -46,5 +46,7 @@
         android:layout_height="55dp"
         android:text="@string/txtBtnGoToTimer"
         android:textSize="15sp" />
+
+
 
 </LinearLayout>
