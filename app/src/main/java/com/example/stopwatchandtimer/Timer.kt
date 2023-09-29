@@ -41,7 +41,9 @@ class Timer : AppCompatActivity() {
     }
     //método para resetar o temporizador
     private fun resetarTemporizador() {
+
         // Verifica se countdownTimer foi inicializado, se foi inicializado executa countdownTimer.cancel()
+        // Faz essa verificação para caso o botão de resetar seja clicado sem antes ter iniciado um temporizador, lançaria exception
         if (::countdownTimer.isInitialized) {
             countdownTimer.cancel()
         }
@@ -50,21 +52,40 @@ class Timer : AppCompatActivity() {
         viewTempoTimer.text = getString(R.string.txt0)
     }
 
+    //Método para iniciar o temporizador
+    //Recebe como argumento o input que o usuario digitou os segundos
     private fun iniciarTemporizador(editText: EditText) {
-        val segundosDigitados = editText.text.toString().toIntOrNull() ?: 0
+
+        //Antes de iniciar, Reseta o temporizador para garantir que não tenha outro rodando ao mesmo tempo
         resetarTemporizador()
 
+        // Guarda em uma variavbel o valor digitado pelo usuario (em segundos)
+        val segundosDigitados = editText.text.toString().toIntOrNull() ?: 0
+
+        // Instanciando uma subclasse de CountDownTimer
+        // Recebe como argumento os segundos que o usuario digitou * 1000 (para transformar em ms)
+        // O outro argumento é quantos ms ele vai esperar para executar a função onTick de novo (1000ms = 1s)
         countdownTimer = object : CountDownTimer((segundosDigitados * 1000).toLong(), 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val secondsRemaining = (millisUntilFinished / 1000).toInt()
-                viewTempoTimer.text = secondsRemaining.toString()
+
+            //Esse método é uma implementação da classe CountDownTimer
+            // Recebe como argumento os segundosDigitados*1000 que a subclasse anonima acima recebeu
+            override fun onTick(tempoRestanteEmMs: Long) {
+
+                //Calcula quantos segundos estão faltando no temporizador
+                val segundosFaltando = (tempoRestanteEmMs / 1000).toInt()
+
+                //Seta o texto do temporizador com a quantidade de segundos que falta
+                viewTempoTimer.text = segundosFaltando.toString()
             }
 
+            //Esse método é uma implementação da classe CountDownTimer
+            // Ao terminar o temporizador, ele é executado e muda o texto para "Completo"
             override fun onFinish() {
                 viewTempoTimer.text = getString(R.string.txtComplete)
             }
         }
 
+        // metodo start é implementado dentro da classe CountDownTimer
         countdownTimer.start()
     }
 
