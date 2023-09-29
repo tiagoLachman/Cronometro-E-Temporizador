@@ -3,68 +3,69 @@ package com.example.stopwatchandtimer
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class Timer : AppCompatActivity() {
 
-    private lateinit var editText: EditText
-    private lateinit var btnReset: Button
-    private lateinit var btnStart: Button
-    private lateinit var btnGoToStopWatch: Button
+    //inicia variaveis
     private lateinit var countdownTimer: CountDownTimer
     private lateinit var viewTempoTimer: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_timer) // Replace with your layout XML file
+        setContentView(R.layout.activity_timer)
 
-        editText = findViewById(R.id.editTextText)
-        btnReset = findViewById(R.id.btnReset)
-        btnStart = findViewById(R.id.btnStart)
-        btnGoToStopWatch = findViewById(R.id.btnGoToStopWatch)
-        viewTempoTimer = findViewById(R.id.viewTempoTimer);
+        //cria variaveis de botao de iniciar, resetar, pra mudar de tela e etc
+        viewTempoTimer = findViewById(R.id.viewTempoTimer)
+        val btnReset = findViewById<Button>(R.id.btnReset)
+        val btnStart = findViewById<Button>(R.id.btnStart)
+        val btnGoToStopWatch = findViewById<Button>(R.id.btnGoToStopWatch)
+        val editText = findViewById<EditText>(R.id.editTextText)
 
-        btnReset.setOnClickListener { resetTimer() }
-        btnStart.setOnClickListener { startTimer() }
-        btnGoToStopWatch.setOnClickListener { navigateToStopWatch() }
+        //Listener para quando clicar no btnStart chamar o método "iniciarTemporizador()" passando como parametro o editText (o input de digitar o valor de segundos)
+        btnStart.setOnClickListener { iniciarTemporizador(editText) }
+
+        //Listener para quando clicar no btnReset chamar o método "resetarTemporizador()"
+        btnReset.setOnClickListener { resetarTemporizador() }
+
+        //Listener para quando clicar no btnGoToTimer ir para tela de Cronometro
+        btnGoToStopWatch.setOnClickListener {
+            val stopWatch = Intent(this@Timer, StopWatch::class.java)
+            startActivity(stopWatch)
+        }
+
+
     }
-
-    private fun resetTimer() {
-        // Stop the countdown timer if it's running
+    //método para resetar o temporizador
+    private fun resetarTemporizador() {
+        // Verifica se countdownTimer foi inicializado, se foi inicializado executa countdownTimer.cancel()
         if (::countdownTimer.isInitialized) {
             countdownTimer.cancel()
         }
-        // Reset progress bar and EditText
-        viewTempoTimer.setText(getString(R.string.txt0))
+
+        //Seta o valor para 00:00:00 (valor em string.xml)
+        viewTempoTimer.text = getString(R.string.txt0)
     }
 
-    private fun startTimer() {
-        val initialSeconds = editText.text.toString().toIntOrNull() ?: 0
-        val maxSeconds = 10 // Change this to your desired maximum seconds
-        resetTimer() // Reset the timer before starting a new one
+    private fun iniciarTemporizador(editText: EditText) {
+        val segundosDigitados = editText.text.toString().toIntOrNull() ?: 0
+        resetarTemporizador()
 
-        countdownTimer = object : CountDownTimer((initialSeconds * 1000).toLong(), 1000) {
+        countdownTimer = object : CountDownTimer((segundosDigitados * 1000).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsRemaining = (millisUntilFinished / 1000).toInt()
-                viewTempoTimer.setText(secondsRemaining.toString())
+                viewTempoTimer.text = secondsRemaining.toString()
             }
 
             override fun onFinish() {
-                // Handle timer completion here
-                viewTempoTimer.setText("Completo")
+                viewTempoTimer.text = getString(R.string.txtComplete)
             }
         }
 
         countdownTimer.start()
     }
 
-    private fun navigateToStopWatch() {
-        val timer = Intent(this@Timer, StopWatch::class.java)
-        startActivity(timer)
-    }
 }

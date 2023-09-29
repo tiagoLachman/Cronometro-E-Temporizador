@@ -21,6 +21,7 @@
         android:hint="@string/txt0"
         android:textAlignment="center"
         android:gravity="center"
+        android:inputType="number"
         android:textSize="35dp" />
 
     <FrameLayout
