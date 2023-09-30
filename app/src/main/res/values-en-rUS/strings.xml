@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cromentador</string>
+    <string name="txtBtnStart">Start</string>
+    <string name="txtBtnReset">Reset</string>
+    <string name="txtBtnPause">Pause</string>
+    <string name="txtBtnGoToTimer">Timer</string>
+    <string name="txtBtnGoToStopWatch">StopWatch</string>
+    <string name="cronometro">StopWatch</string>
+</resources>

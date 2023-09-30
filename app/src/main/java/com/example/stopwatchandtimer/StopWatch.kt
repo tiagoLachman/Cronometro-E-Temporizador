@@ -1,11 +1,13 @@
 package com.example.stopwatchandtimer
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class StopWatch : AppCompatActivity() {
@@ -61,8 +63,22 @@ class StopWatch : AppCompatActivity() {
     // Função para INICIAR o cronometro
     // Usa o handler.postDelayed para chamar a função "atualizarTempoCronometro" em "0.5ms" após acionar o botão
     private fun iniciarCronometro() {
-        handler.postDelayed(atualizarTempoCronometro, 500)
+        handler.postDelayed(atualizarTempoCronometro, 1)
         isRunning = true
+
+        //Guardar quantidade de vezes que o cronometro foi iniciado no sharedPreferences
+        val shared = getSharedPreferences("qtdVezes", Context.MODE_PRIVATE)
+        var nVezes = shared.getInt("qtdVezes", 0)
+        nVezes++
+
+        //Salva no sharedPreferences
+        val editor = shared.edit()
+        editor.putInt("qtdVezes", nVezes)
+        editor.apply()
+
+        //Toast para mostrar que o cronometro foi iniciado e quantas vezes foi iniciado com duração de 200ms
+        val toast = Toast.makeText(this, "Cronômetro Iniciado: $nVezes", 200)
+        toast.show()
     }
 
     //Função para PAUSAR o Cronometro
@@ -82,6 +98,10 @@ class StopWatch : AppCompatActivity() {
         isRunning = false
         tempoCorrido = 0L
         txtCronometro?.text = "00:00:00"
+
+        //Toast para mostrar que o cronometro foi resetado com duração de 200ms
+        val toast = Toast.makeText(this, "Cronometro resetado", 200) // in Activity
+        toast.show()
     }
 
     // Cria uma função que é uma instancia de "Runnable" (significa que esse codigo pode ser executado em uma thread)
