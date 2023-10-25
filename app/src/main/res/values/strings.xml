@@ -5,7 +5,11 @@
     <string name="txtBtnPause">Pause</string>
     <string name="txtBtnGoToTimer">Temporizador</string>
     <string name="txtBtnGoToStopWatch">Cronômetro</string>
-    <string name="txt0">00:00:00</string>
+    <string name="txt0" translatable="false">00:00:00</string>
     <string name="cronometro">Cronometro</string>
     <string name="txtComplete">Completo</string>
+    <string name="txtBtnLogin">Logar</string>
+    <string name="txtBtnRegistrar">Registrar</string>
+    <string name="txtHintEmail">Email</string>
+    <string name="txtHintPassword">Senha</string>
 </resources>
