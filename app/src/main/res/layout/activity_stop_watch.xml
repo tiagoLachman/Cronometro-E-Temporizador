@@ -32,6 +32,14 @@
         android:textSize="15sp" />
 
     <Button
+        android:id="@+id/btnSensor"
+        android:layout_width="170dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/txtBtnSensor"
+        android:textSize="15sp" />
+
+    <Button
         android:id="@+id/btnReset"
         android:layout_width="170dp"
         android:layout_height="55dp"

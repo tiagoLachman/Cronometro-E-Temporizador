@@ -7,4 +7,10 @@
     <string name="txtBtnGoToTimer">Timer</string>
     <string name="txtBtnGoToStopWatch">StopWatch</string>
     <string name="cronometro">StopWatch</string>
+    <string name="txtComplete">Finished</string>
+    <string name="txtBtnLogin">Login</string>
+    <string name="txtBtnRegistrar">Register</string>
+    <string name="txtHintEmail">Email</string>
+    <string name="txtHintPassword">Password</string>
+    <string name="txtBtnSensor">Sensor</string>
 </resources>

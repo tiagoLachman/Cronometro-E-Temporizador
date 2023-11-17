@@ -27,11 +27,17 @@ class StopWatch : AppCompatActivity() {
 
         //seta valor na variavel btnGoToTimer
         val btnGoToTimer = findViewById<Button>(R.id.btnGoToTimer)
+        val btnGoToSensor = findViewById<Button>(R.id.btnSensor)
 
         //Listener para quando clicar no btnGoToTimer ir para tela de Temporizador
         btnGoToTimer.setOnClickListener {
             val timer = Intent(this@StopWatch, Timer::class.java)
             startActivity(timer)
+        }
+
+        btnGoToSensor.setOnClickListener {
+            val sensor = Intent(this@StopWatch, Sensor::class.java)
+            startActivity(sensor)
         }
 
         //cria variaveis de botao de iniciar, resetar, pra mudar de tela, textos e etc

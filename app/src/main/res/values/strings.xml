@@ -12,4 +12,5 @@
     <string name="txtBtnRegistrar">Registrar</string>
     <string name="txtHintEmail">Email</string>
     <string name="txtHintPassword">Senha</string>
+    <string name="txtBtnSensor">Sensor</string>
 </resources>
